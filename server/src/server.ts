@@ -1,10 +1,10 @@
-// using http allow for more modular code and connection to websockets
+
 import * as http from 'http';
 import { app }  from './app';
 import { loadPlanetsData } from './models/planets.model';
 
 // const PORT = process.env.PORT || 3001;
-const PORT = 8000;
+const PORT = 3001;
 const server = http.createServer(app);
     
 
