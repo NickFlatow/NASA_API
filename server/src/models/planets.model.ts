@@ -2,10 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import { parse }  from 'csv-parse';
 
-
+// import { fileURLToPath } from 'url';
+import { dirname } from '../../utils/meta'
 
 //TODO should be type planet defined in kepler_daa.csv
 export const habitablePlanets:any[] = [];
+
 
 function isHabitablePlanet(planet:any) {
   return planet['koi_disposition'] === 'CONFIRMED'
@@ -14,8 +16,8 @@ function isHabitablePlanet(planet:any) {
 }
 export function loadPlanetsData():Promise<void> {
     return (new Promise((resolve, reject) => {
-        // fs.createReadStream('../server/data/kepler_data.csv')
-        fs.createReadStream(path.join(__dirname, '..', '..' , 'data', 'kepler_data.csv'))
+
+        fs.createReadStream(path.join(dirname, '..' , 'data', 'kepler_data.csv'))
         .pipe(parse({
             comment: '#',
             columns: true,

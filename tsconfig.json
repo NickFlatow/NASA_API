@@ -1,0 +1,54 @@
+{
+    // This is an alias to @tsconfig/node16: https://github.com/tsconfig/bases
+    "extends": "ts-node/node16/tsconfig.json",
+  
+    // Most ts-node options can be specified here using their programmatic names.
+    "ts-node": {
+      
+      "esm": true,  // use esm loader to load modules
+      "experimentalSpecifierResolution": "node", // resolve modules using auto imports(allows to not specify .js or .ts in imports) and node resolution
+
+      "transpileOnly": true, //ts-node will skip typechecking faster but will not emit .d.ts files use tsc to build
+  
+      //compiler options for ts-node 
+      "compilerOptions": {        
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+      },
+    },
+    //compilerOptions only used by tsc(for build) ignored by ts-node
+    "compilerOptions": {
+      "target": "ESNext",
+      "module": "ESNext",
+      "moduleResolution": "Node",                       
+      // "declaration": true,                         /* Generates corresponding '.d.ts' file. */ 
+      "outDir": "./dist",                             /* Redirect output structure to the directory. */
+      "strict": true,                                 /* Enable all strict type-checking options. */
+      "strictPropertyInitialization": false,          /* Enable strict checking of property initialization in classes. */
+      "strictNullChecks": true,                       /* Enable strict null checks. */
+      "lib": ["ESNext","dom"],                        /* Specify library files to be included in the compilation. */
+      "allowSyntheticDefaultImports": true,
+      "esModuleInterop": true,
+      "noEmit": true,
+      "composite": true,
+      "rootDir": ".",                                /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+  },
+  "exclude": [
+    "dist",
+    "__tests__",
+    "node_modules",
+    "jest.config.ts"
+  ],
+  "include": [
+    "**/*.ts", 
+  ],
+
+
+
+}

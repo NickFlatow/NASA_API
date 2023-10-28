@@ -1,5 +1,9 @@
 import express from 'express';
-import { getAllLauches } from './launches.controller';
+import { httpAddNewLaunch, httpGetAllLauches, httpDeleteLaunch } from './launches.controller';
 
-export const launcesRouter = express.Router();
-launcesRouter.get('/launches', getAllLauches);
+export const launchesRouter = express.Router();
+//path /launches defined in app.ts app.use('/launches',launcesRouter);
+launchesRouter.get('/', httpGetAllLauches);
+launchesRouter.post('/', httpAddNewLaunch);
+launchesRouter.delete('/:id', httpDeleteLaunch);
+ 
