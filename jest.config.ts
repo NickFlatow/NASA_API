@@ -3,4 +3,5 @@ module.exports = {
     extensionsToTreatAsEsm: ['.ts'],
     testPathIgnorePatterns: ['./node_modules/'],
     testEnvironment: 'node',
+    transform: {}
 };
