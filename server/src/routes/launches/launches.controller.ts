@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 
-import { getAllLaunches,addNewLaunch,deleteLaunch,launch } from "../../models/launches.model";
+import { getAllLaunches,addNewLaunch,deleteLaunch as abortLaunch,launch } from "../../models/launches.model";
 
-export function httpGetAllLauches(req:Request, res:Response): Response {
-    return res.status(200).json(getAllLaunches());
+export async function httpGetAllLauches(req:Request, res:Response): Promise<Response> {
+    return res.status(200).json(await getAllLaunches());
 }
-export function httpAddNewLaunch(req:Request, res:Response): Response {
+export async function httpAddNewLaunch(req:Request, res:Response): Promise<Response> {
     // console.log(req.body);
     const launch:launch = req.body;
     
@@ -21,16 +21,16 @@ export function httpAddNewLaunch(req:Request, res:Response): Response {
             error: 'Invalid launch date'
         });
     }
-    addNewLaunch(req.body)
+    await addNewLaunch(req.body)
     return res.status(201).json(launch);
 }
-export function httpDeleteLaunch(req:Request, res:Response): Response {
+export async function httpDeleteLaunch(req:Request, res:Response): Promise<Response> {
     const flightNumber = parseInt(req.params.id);
-    const launch = deleteLaunch(flightNumber);
+    const aborted =  await abortLaunch(flightNumber);
     
-    if (launch) return res.status(200).json(launch);
+    if (aborted) return res.status(200).json(aborted);
     
-    return res.status(404).json({
+    return res.status(400).json({
         error:"Launch Id does not exist"
     })
 }

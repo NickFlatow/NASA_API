@@ -1,12 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { parse }  from 'csv-parse';
-
-// import { fileURLToPath } from 'url';
 import { dirname } from '../../utils/meta'
 
-//TODO should be type planet defined in kepler_daa.csv
-export const habitablePlanets:any[] = [];
+import { planets } from './plantes.mongo';
 
 
 function isHabitablePlanet(planet:any) {
@@ -22,21 +19,44 @@ export function loadPlanetsData():Promise<void> {
             comment: '#',
             columns: true,
         }))
-        .on('data', (data:any) => {
+        .on('data', async (data:any) => {
             if (isHabitablePlanet(data)) {
-                habitablePlanets.push(data);
+                savePlanet(data);
             }
         })
         .on('error', (err) => {
             console.log(err);
             reject(err);
         })
-        .on('end', () => {
-            habitablePlanets.map((planet) => {
-                return planet['kepler_name'];
-            });
+        .on('end',async () => {
+            const habitablePlanets = await getAllPlanets();
             console.log(`${habitablePlanets.length} habitable planets found!`);
             resolve();
         });
     }));
+}
+
+
+export async function getAllPlanets() {
+    // empty {} means get all
+    // second param is projection, which means what fields to NOT return
+    return await planets.find({},{
+        '_id': 0,
+        '__v': 0,
+    });
+}
+
+async function savePlanet(planet:{kepler_name:string}) {
+    // insert + update = upsert
+    try {
+        await planets.updateOne({
+            kepler_name: planet.kepler_name,
+        },{
+            kepler_name: planet.kepler_name,
+        },{
+            upsert: true,
+        });
+    } catch (error) {
+        console.error(`Could not save planet ${error}`);
+    }
 }

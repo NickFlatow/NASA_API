@@ -10,6 +10,7 @@
     "build-client": "npm run build --prefix client",
     "watch": "npm run client & npm run server",
     "deploy": "npm run build-client && npm run server",
+    "deploy-cluster": "npm run build-client && npm run cluster --prefix server",
     "test": "jest",
     "test-watch": "jest --watch"
   },
