@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 
 import { getAllLaunches,addNewLaunch,deleteLaunch as abortLaunch,launch } from "../../models/launches.model";
+import { getPagination } from "../../services/query";
 
 export async function httpGetAllLauches(req:Request, res:Response): Promise<Response> {
-    return res.status(200).json(await getAllLaunches());
+    const { skip, limit } = getPagination(req.query)
+    const launches = await getAllLaunches(limit, skip);
+    return res.status(200).json(launches);
 }
 export async function httpAddNewLaunch(req:Request, res:Response): Promise<Response> {
     // console.log(req.body);

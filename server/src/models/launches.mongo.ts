@@ -36,4 +36,4 @@ const launchesSchema = new mongoose.Schema({
 });
 
 // Connenct the launchesSchema with the "launches" collection
-export const launches = mongoose.model('Launch', launchesSchema);
+export const launches = mongoose.model('launches', launchesSchema);

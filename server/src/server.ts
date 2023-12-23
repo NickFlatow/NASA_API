@@ -1,20 +1,22 @@
-
 import * as http from 'http';
 import { app }  from './app';
 import { loadPlanetsData } from './models/planets.model';
 import { mongoConnect } from './services/mongo';
+import { loadLaunchData } from './models/launches.model';
 
-// const PORT = process.env.PORT || 3001;
-const PORT = 3001;
+const PORT = process.env.PORT;
+// const PORT = 3001;
 const server = http.createServer(app);
 
 async function startServer() {
     await mongoConnect();
     await loadPlanetsData();
+    await loadLaunchData();
     
     server.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
     });
 }
+console.log("starting server...")
 
 startServer();
