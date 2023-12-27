@@ -1,9 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 import { parse }  from 'csv-parse';
-import { dirname } from '../../utils/meta'
-
 import { planets } from './plantes.mongo';
+import { fileURLToPath } from 'url';
+
+// Convert the URL to a file path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
 
 
 function isHabitablePlanet(planet:any) {
@@ -13,8 +18,7 @@ function isHabitablePlanet(planet:any) {
 }
 export function loadPlanetsData():Promise<void> {
     return (new Promise((resolve, reject) => {
-
-        fs.createReadStream(path.join(dirname, '..' , 'data', 'kepler_data.csv'))
+        fs.createReadStream(path.join(__dirname, '..' , '..', 'data', 'kepler_data.csv'))
         .pipe(parse({
             comment: '#',
             columns: true,

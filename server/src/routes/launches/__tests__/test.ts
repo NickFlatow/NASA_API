@@ -2,8 +2,7 @@ import request  from 'supertest'
 import { mongoConnect,mongoDisconnect } from '../../../services/mongo';
 import { app } from '../../../app';
 import { loadPlanetsData } from '../../../models/planets.model';
-
-jest.mock('../../../../utils/meta.ts');
+import { describe, it, beforeAll,afterAll,test,expect } from 'vitest';
 
 describe('launches API', () => {
     beforeAll(async () => {
