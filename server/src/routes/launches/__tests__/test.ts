@@ -1,12 +1,14 @@
 import request  from 'supertest'
 import { mongoConnect,mongoDisconnect } from '../../../services/mongo';
 import { app } from '../../../app';
+import { loadPlanetsData } from '../../../models/planets.model';
 
 jest.mock('../../../../utils/meta.ts');
 
 describe('launches API', () => {
     beforeAll(async () => {
         await mongoConnect();
+        await loadPlanetsData();
     });
     afterAll(async () => {
         await mongoDisconnect();
