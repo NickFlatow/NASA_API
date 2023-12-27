@@ -8,12 +8,12 @@ jobs:
   build:
     env:
       CI: true
-      MONGO_URL: mongodb://localhost:27017/nasa
+      MONGO_URL: mongodb://localhost/nasa
       # PORT: 5000
     strategy:
       matrix:
         node-version: [16.x, 18.x, 20.x]
-        mongodb-version: ['6.3']
+        mongodb-version: ['6.3.0']
     runs-on: ubuntu-latest
     # strategy:
     #   matrix:
