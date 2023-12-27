@@ -1,7 +1,3 @@
-
-import dotenv from 'dotenv';
-dotenv.config();
-
 import type { Config } from '@jest/types';
 
 const config: Config.InitialOptions = {
@@ -9,8 +5,10 @@ const config: Config.InitialOptions = {
     extensionsToTreatAsEsm: ['.ts'],
     testPathIgnorePatterns: ['./node_modules/'],
     testEnvironment: 'node',
-    transform: {},
-    // setupFiles: ['<rootDir>/jest-setup.ts'],
+    transform: {
+        '^.+\\.ts$': ['ts-jest', { useESM: true }],
+    },
+    setupFiles: ['<rootDir>/jest-setup.ts'],
 };
 
 export default config;

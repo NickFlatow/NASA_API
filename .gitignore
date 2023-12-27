@@ -1,2 +1,5 @@
 node_modules
 .env
+.env.test
+secure/cert.pem
+secure/key.pem

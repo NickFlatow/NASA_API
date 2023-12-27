@@ -1,22 +1,15 @@
 import express from 'express';
 import path from 'path';
+import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
-
-
 //TODO CHEAP FIX FOR JEST TS ISSUE should be import.meta.url
-import { dirname } from '../utils/meta'
-// const file = fileURLToPath("file:///C:/Users/Nick%20Flatow/Documents/code/nasa/server/src/app.ts");
-// const dir = path.dirname(file);
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-
+import { dirname } from '../utils/meta';
 import { api } from './routes/api';
-
 
 export const app = express();
 
+// app.use(helmet());
 //add cors
 app.use(cors());
 app.use(morgan('combined'));

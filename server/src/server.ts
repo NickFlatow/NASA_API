@@ -1,4 +1,5 @@
 import * as http from 'http';
+import fs from 'fs';
 import { app }  from './app';
 import { loadPlanetsData } from './models/planets.model';
 import { mongoConnect } from './services/mongo';
