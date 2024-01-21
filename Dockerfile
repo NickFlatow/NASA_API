@@ -24,8 +24,18 @@ RUN npm run build --prefix client
 
 RUN npm i
 
+COPY sockets/ sockets/
+
+RUN npm run install-pong
+
 # USER node
 
-CMD ["npm", "start", "--prefix", "server"]
+# CMD ["npm", "start", "--prefix", "server"], 
+COPY index.html .
+
+COPY start.sh .
+RUN chmod +x start.sh
+CMD ["./start.sh"]
 
 EXPOSE 3000
+EXPOSE 5000
